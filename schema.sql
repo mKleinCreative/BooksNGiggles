@@ -1,4 +1,3 @@
-
 -- ---
 -- Globals
 -- ---
@@ -7,103 +6,88 @@
 -- SET FOREIGN_KEY_CHECKS=0;
 
 -- ---
--- Table 'book'
+      -- Table "book"
 --
 -- ---
 
-DROP TABLE IF EXISTS `book`;
-
-CREATE TABLE `book` (
-  `id` INTEGER NULL AUTO_INCREMENT DEFAULT NULL,
-  `author_id` INTEGER NULL DEFAULT NULL,
-  `genre_id` INTEGER NULL DEFAULT NULL,
-  `description_id` INTEGER NULL DEFAULT NULL,
-  `image_id` INTEGER NULL DEFAULT NULL,
-  PRIMARY KEY (`id`)
+CREATE TABLE "book" (
+  "id" SERIAL PRIMARY KEY,
+  "description" VARCHAR NULL DEFAULT NULL,
+  "image_url" VARCHAR NULL DEFAULT NULL
 );
 
 -- ---
--- Table 'author'
+-- Table "author"
 --
 -- ---
 
-DROP TABLE IF EXISTS `author`;
-
-CREATE TABLE `author` (
-  `id` INTEGER NULL AUTO_INCREMENT DEFAULT NULL,
-  `author_name` CHAR NULL DEFAULT NULL,
-  PRIMARY KEY (`id`)
+CREATE TABLE "author" (
+  "id" SERIAL PRIMARY KEY,
+  "author_name" VARCHAR NULL DEFAULT NULL
 );
 
 -- ---
--- Table 'genre'
+-- Table "genre"
 --
 -- ---
 
-DROP TABLE IF EXISTS `genre`;
-
-CREATE TABLE `genre` (
-  `id` INTEGER NULL AUTO_INCREMENT DEFAULT NULL,
-  `genre_name` VARCHAR NULL DEFAULT NULL,
-  PRIMARY KEY (`id`)
+CREATE TABLE "genre" (
+  "id" SERIAL PRIMARY KEY,
+  "genre_name" VARCHAR NULL DEFAULT NULL
 );
 
 -- ---
--- Table 'description'
+-- Table "book_author"
 --
 -- ---
 
-DROP TABLE IF EXISTS `description`;
-
-CREATE TABLE `description` (
-  `id` INTEGER NULL AUTO_INCREMENT DEFAULT NULL,
-  `description_field` VARCHAR NULL DEFAULT NULL,
-  PRIMARY KEY (`id`)
+CREATE TABLE "book_author" (
+  "id" SERIAL PRIMARY KEY,
+  "book_id" INTEGER NULL DEFAULT NULL,
+  "author_id" INTEGER NULL DEFAULT NULL
 );
 
 -- ---
--- Table 'image'
+-- Table "book_genre"
 --
 -- ---
 
-DROP TABLE IF EXISTS `image`;
-
-CREATE TABLE `image` (
-  `id` INTEGER NULL AUTO_INCREMENT DEFAULT NULL,
-  `img_url` VARCHAR NULL DEFAULT NULL,
-  PRIMARY KEY (`id`)
+CREATE TABLE "book_genre" (
+  "id" SERIAL PRIMARY KEY,
+  "book_id" INTEGER NULL DEFAULT NULL,
+  "genre_id" INTEGER NULL DEFAULT NULL
 );
 
 -- ---
 -- Foreign Keys
 -- ---
 
-ALTER TABLE `book` ADD FOREIGN KEY (author_id) REFERENCES `author` (`id`);
-ALTER TABLE `book` ADD FOREIGN KEY (genre_id) REFERENCES `genre` (`id`);
-ALTER TABLE `book` ADD FOREIGN KEY (description_id) REFERENCES `description` (`id`);
-ALTER TABLE `book` ADD FOREIGN KEY (image_id) REFERENCES `image` (`id`);
+ALTER TABLE "book_author" ADD FOREIGN KEY (book_id) REFERENCES "book" ("id");
+ALTER TABLE "book_author" ADD FOREIGN KEY (author_id) REFERENCES "author" ("id");
+ALTER TABLE "book_genre" ADD FOREIGN KEY (genre_id) REFERENCES "genre" ("id");
+ALTER TABLE "book_genre" ADD FOREIGN KEY (book_id) REFERENCES "book" ("id");
 
 -- ---
 -- Table Properties
 -- ---
 
--- ALTER TABLE `book` ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
--- ALTER TABLE `author` ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
--- ALTER TABLE `genre` ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
--- ALTER TABLE `description` ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
--- ALTER TABLE `image` ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+-- ALTER TABLE "book" ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+-- ALTER TABLE "author" ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+-- ALTER TABLE "genre" ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+-- ALTER TABLE "book_author" ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+-- ALTER TABLE "book_genre" ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 -- ---
 -- Test Data
 -- ---
 
--- INSERT INTO `book` (`id`,`author_id`,`genre_id`,`description_id`,`image_id`) VALUES
--- ('','','','','');
--- INSERT INTO `author` (`id`,`author_name`) VALUES
--- ('','');
--- INSERT INTO `genre` (`id`,`genre_name`) VALUES
--- ('','');
--- INSERT INTO `description` (`id`,`description_field`) VALUES
--- ('','');
--- INSERT INTO `image` (`id`,`img_url`) VALUES
--- ('','');
+-- INSERT INTO "book" ("id","description","image_url") VALUES
+-- (",",");
+-- INSERT INTO "author" ("id","author_name") VALUES
+-- (",");
+-- INSERT INTO "genre" ("id","genre_name") VALUES
+-- (",");
+-- INSERT INTO "book_author" ("id","book_id","author_id") VALUES
+-- (",",");
+-- INSERT INTO "book_genre" ("id","book_id","genre_id") VALUES
+-- (",",");
