@@ -12,6 +12,7 @@
 
 CREATE TABLE "book" (
   "id" SERIAL PRIMARY KEY,
+  "title" VARCHAR NULL DEFAULT NULL,
   "description" VARCHAR NULL DEFAULT NULL,
   "image_url" VARCHAR NULL DEFAULT NULL
 );
@@ -23,7 +24,7 @@ CREATE TABLE "book" (
 
 CREATE TABLE "author" (
   "id" SERIAL PRIMARY KEY,
-  "author_name" VARCHAR NULL DEFAULT NULL
+  "name" VARCHAR NULL DEFAULT NULL
 );
 
 -- ---
@@ -33,7 +34,7 @@ CREATE TABLE "author" (
 
 CREATE TABLE "genre" (
   "id" SERIAL PRIMARY KEY,
-  "genre_name" VARCHAR NULL DEFAULT NULL
+  "name" VARCHAR NULL DEFAULT NULL
 );
 
 -- ---
