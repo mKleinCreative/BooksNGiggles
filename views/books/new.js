@@ -21,3 +21,21 @@ block content
 
     .form-group
       button.btn.btn-success(type='submit') Add This Book
+
+      // extends ../layout
+      //
+      // block content
+      //   .addBook
+      //     form(method='post', action=`/books${ book ? '' : '/' + book.id}`)
+      //       div.textBox1
+      //         input.inputAll(type='text', name='title', placeholder='Title', value=`${book.title || ''}`)
+      //       div.textBox
+      //         input.inputAll(type='text', name='author', placeholder='Author')
+      //       div.textBox
+      //         textarea.inputAll(name='description', placeholder='Description')= book.description
+      //       div.textBox
+      //         input.inputAll(type='text', name='image', placeholder='Image URL', value=`${book.image || ''}`)
+      //       div.textBox
+      //         input.inputAll(type='text', name='published', placeholder='Published Date mm-dd-yy', value=`${book.published || ''}`)
+      //       div.textBox
+      //         input.submit(type='submit', value='Submit')
