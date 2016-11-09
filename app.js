@@ -21,9 +21,39 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+//
+// app.use('/', index);
+// app.use('/users', users);
 
-app.use('/', index);
-app.use('/users', users);
+
+//
+// app.get('/', (request, response, next) => {
+//   response.send('muhahahahahaha')
+// })
+
+
+app.get('/', (request, response, next) => {
+  response.render('index')
+})
+
+app.get('/books', (request, response, next) => {
+  response.render('books/index')
+})
+
+app.get('/books/new', (request, response, next) => {
+  response.render('books/new')
+})
+
+app.get('/books/:bookId', (request, response, next) => {
+  const { bookId } = request.params
+  response.send(`would show book ID ${bookId}`)
+})
+
+// create a book route
+app.post('/books', (request, response, next) => {
+  response.json(request.body)
+})
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
