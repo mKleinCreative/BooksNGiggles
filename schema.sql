@@ -82,13 +82,13 @@ ALTER TABLE "book_genre" ADD FOREIGN KEY (book_id) REFERENCES "book" ("id");
 -- Test Data
 -- ---
 
--- INSERT INTO "book" ("id","description","image_url") VALUES
--- (",",");
--- INSERT INTO "author" ("id","author_name") VALUES
--- (",");
--- INSERT INTO "genre" ("id","genre_name") VALUES
--- (",");
--- INSERT INTO "book_author" ("id","book_id","author_id") VALUES
--- (",",");
--- INSERT INTO "book_genre" ("id","book_id","genre_id") VALUES
--- (",",");
+ INSERT INTO "book" ("id","description","image_url") VALUES
+ ("1","this is a book","www.google.com");
+ INSERT INTO "author" ("id","author_name") VALUES
+ ("1","Karl Marx");
+ INSERT INTO "genre" ("id","genre_name") VALUES
+ ("1","Communist Manifesto");
+ INSERT INTO "book_author" ("id","book_id","author_id") VALUES
+ ("1","1","1");
+ INSERT INTO "book_genre" ("id","book_id","genre_id") VALUES
+ ("1","1","1");
