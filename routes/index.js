@@ -1,6 +1,6 @@
 var express = require('express');
 var router = express.Router();
-var db = require('../database')
+var db = require('../database');
 // /* GET home page. */
 // router.get('/', function(req, res, next) {
 //   res.render('index', { title: 'Express' });
@@ -11,7 +11,7 @@ router.get('/', (req, res) => {
   let page = ( parseInt( req.query.page, 10 ) ) || 1
   db.Books.all(page)
     .then(books => {
-      res.render('/books/show', { books, page })
+      res.render('books/show', { books, page })
     })
     .catch(error => {
       console.log('im an error1!')
