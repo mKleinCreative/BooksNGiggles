@@ -1,5 +1,25 @@
 extends layout
 
 block content
-  h1= title
-  p Welcome to #{title}
+  main
+    aside
+      form
+        div
+          input.search-box(type='text', name='search'
+          placeholder='Search..')
+          button.submit(type='submit') Search
+        ul
+          li
+            label
+              input(type='input', value='title', name='type')
+              i Book Titles
+          li
+            label
+              input(type='input', value='author', name='type')
+              i Authors
+          li
+            label
+              input(type='input', value='genre', name='type')
+              i Genres
+  //- h1= title
+  //- p Welcome to #{Books N Giggles}
