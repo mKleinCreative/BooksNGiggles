@@ -1,9 +1,6 @@
-
 extends ../layout
 block content
   h1 BOOK
-  pre= JSON.stringify(book, null, 4)
 
-  h1= book.title
-
-  pre= book.description
+  each book in books
+    p= JSON.stringify(book)
