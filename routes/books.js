@@ -1,45 +1,33 @@
 const express = require('express')
 const router = express.Router()
 
-const { Books, Authors, Genres, BookAuthors, db } = require( '../database' )
+const { Books, Authors, BookAuthors } = require( '../database' )
 
 
 router.get('/', function(req, res) {
-  //res.send('hello world ')
-
-  Books.all()
-    .then(books => {
-      res.render('books/show', { books: books })
-    })
-    .catch(error => {
-      response.render('error', { error: error } )
-    })
+  res.send('hello world ')
 })
 
 
-router.get('/new', (request, response) => {
-  response.render( 'books/new', { book: {} } )
+router.get('/add', (request, response) => {
+  response.render( 'books/form', { book: {} } )
 })
 
-router.post('/new', (request, response) => {
+router.post('/add', (request, response) => {
   const { title, author, genre, image, description } = request.body
-  const book = { title, author, genre, image, description }
 
   Promise.all([
-    Books.createBook(title, author, genre, description, image),
-    Authors.create(author),
-    Genres.create(genre)
+    Book.createBookSql( request.body),
+    db.addAuthor( author )
   ])
   .then( results => {
-    const bookId = results[0].id
-    const authorId = results[1].id
-    const genreId = results[2].id
+    const bookId = results[0]
+    const authorId = results[1]
 
-    response.render(`books/detail`, { book })
-    // db.connectAuthorsWithBook(authorId.id, bookId.id)
-    // .then( (results) => {
-    //   response.redirect(`/books/detail/${results.book_id}`)
-    // })
+    db.connectAuthorsWithBook(authorId.id, bookId.id)
+    .then( (results) => {
+      response.redirect(`/books/details/${results.book_id}`)
+    })
   })
   .catch( (error) => {
       response.render('error', { error: error } )
@@ -47,12 +35,18 @@ router.post('/new', (request, response) => {
 
 })
 
-router.get( '/new', ( request, response, next ) => {
+
+
+
+
+
+router.get( '/add', ( request, response, next ) => {
   response.render( 'books/form', { book: {} } )
 })
 
 router.get( '/:id', ( request, response, next ) => {
   const { id } = request.params
+
   Promise.all([
     Books.findById( id ),
     Books.findAuthorsByBookId( id ),

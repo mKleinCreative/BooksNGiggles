@@ -1,32 +1,16 @@
 const pgp = require('pg-promise')()
 const db = pgp({database: 'booksngiggles_development'})
 
-const createBookSql = `INSERT INTO book (title, description, image_url) VALUES ( $1, $2, $3 ) RETURNING id`
+const createBookSql = 'INSERT INTO book (title, description, image_url ) VALUES ( $1, $2, $3 ) RETURNING id'
 
 const Books = {
-  count: () => db.one(
-    `SELECT COUNT(*)
-    FROM book` ),
-  all: () => db.any(
-    `SELECT *
-     FROM book order by id asc` ),
-  // all: offset => db.any(
-  //   `SELECT *
-  //    FROM book order by id asc
-  //    LIMIT 10 OFFSET $1`, [ offset ] ),
-  findById: id => db.one( `
-  SELECT *
-  FROM book
-  WHERE id=$1`, [id] ),
-  findAuthorsByBookId: id => db.any(
-    `SELECT *
-    FROM author
-    JOIN book_author
-    ON book_author.author_id=author.id
-    WHERE book_author.book_id=$1`, [id]),
-  findGenresByBookId: id => db.any(`SELECT * FROM genre JOIN book_genre ON book_genre.genre_id=genre.id WHERE book_genre.book_id=$1`, [id]),
-  createBook: ( title, author, genre, description, image_url ) => db.one( createBookSql, [title, author, genre, description, image_url] ),
-  delete: id => db.none( `DELETE FROM book WHERE id=$1`, [id])
+  count: () => db.one( 'SELECT COUNT(*) FROM book' ),
+  all: offset => db.any( 'SELECT * FROM book order by id asc LIMIT 10 OFFSET $1', [ offset ] ),
+  findById: id => db.one( 'SELECT * FROM book WHERE id=$1', [id] ),
+  findAuthorsByBookId: id => db.any('SELECT * FROM author JOIN book_author ON book_author.author_id=author.id WHERE book_author.book_id=$1', [id]),
+  findGenresByBookId: id => db.any('SELECT * FROM genre JOIN book_genre ON book_genre.genre_id=genre.id WHERE book_genre.book_id=$1', [id]),
+  createBook: ( title, description, image, published ) => db.one( createBookSql, [title, description, image, published] ),
+  delete: id => db.none( 'DELETE FROM book WHERE id=$1', [id])
 }
 
 const Authors = {
@@ -36,7 +20,6 @@ const Authors = {
 }
 
 const Genres = {
-  create: name => db.one( 'INSERT INTO genre ( name ) VALUES ( $1 ) RETURNING id', [name] ),
   forBooks: ids => db.any( 'SELECT * FROM genre JOIN book_genre ON book_genre.genre_id=genre.id WHERE book_genre.book_id IN ($1:csv)', [ids] )
 }
 
@@ -71,5 +54,5 @@ const Search = {
 }
 
 module.exports = {
-  Books, Authors, BookAuthors, Genres, Search, db
+  Books, Authors, BookAuthors, Genres, Search
 }
