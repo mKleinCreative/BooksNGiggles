@@ -9,6 +9,8 @@ html {
 body {
   padding: 50px;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  /*background-color: orange;*/
+
   color: white;
   background: transparent;
 }
@@ -17,9 +19,9 @@ a {
   color: #00B7FF;
 }
 
+
 a.booklist {
 	background: url(https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcSsoxIrWzUxiMMki17FN5EVqiMZDbjrNO_jB7AsK_XgwcyAscSV) no-repeat;
-	
 }
 
 a.add-book {
