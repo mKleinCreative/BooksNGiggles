@@ -1,7 +1,7 @@
 const pgp = require('pg-promise')()
 const db = pgp({database: 'booksngiggles_development'})
 
-const createBookSql = `INSERT INTO book (title, description, image_url) VALUES ( $1, $2, $3 ) RETURNING id`
+const createBookSql = `INSERT INTO book (title, author, genre, description, image_url) VALUES ( $1, $2, $3, $4, $5 ) RETURNING id`
 
 const Books = {
   count: () => db.one(
