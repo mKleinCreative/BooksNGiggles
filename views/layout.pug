@@ -13,7 +13,7 @@ html
 
   body
     nav.navbar.navbar-default(id=nav)
-      div(id=homepage)
+      div.navbar-inner(id=homepage)
 
       .container-fluid
         .navbar-header
@@ -21,11 +21,11 @@ html
             img(alt='Brand', src='../images/creepyBook.jpg' id='nav-bar-img')
         ul.nav.navbar-nav.pagination.pagination-lg
           li.active
-            a(href='/') Home
+            a.style(href='/') Home
           li
-            a(href='/books') Booklist
+            a.style(href='/books') Booklist
           li
-            a(href='/books/new') Add Book
+            a.style(href='/books/new') Add Book
 
             form.navbar-form.navbar-right(action='/search', method='get')
                     .form-group
