@@ -1,6 +1,6 @@
 var express = require('express');
 var router = express.Router();
-var db = require('../database')
+var { Books, Search, db } = require('../database')
 // /* GET home page. */
 // router.get('/', function(req, res, next) {
 //   res.render('index', { title: 'Express' });
@@ -40,7 +40,7 @@ router.get( '/', function( request, response) {
         Search.byTitle(query.search)
         .then( books => {
           console.log(books)
-          response.render( 'index', { books, page, size } )
+          response.render( 'books/show', { books, page, size } )
         })
         .catch( error =>{
           console.log(error)

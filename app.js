@@ -7,6 +7,7 @@ var bodyParser = require('body-parser');
 
 var index = require('./routes/index');
 var users = require('./routes/users');
+var books = require('./routes/books');
 
 var app = express();
 
@@ -22,8 +23,9 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 //
-// app.use('/', index);
-// app.use('/users', users);
+app.use('/', index);
+app.use('/users', users);
+app.use('/books', books)
 
 
 //
@@ -36,17 +38,17 @@ app.get('/', (request, response, next) => {
   response.render('index')
 })
 
-app.get('/books', (request, response, next) => {
-  response.render('books/index')
-})
+// app.get('/books', (request, response, next) => {
+//   response.render('books/show')
+// })
 
-app.get('/books/new', (request, response, next) => {
-  response.render('books/new')
-})
+// app.get('/books/new', (request, response, next) => {
+//   response.render('books/new')
+// })
 
 app.get('/books/:bookId', (request, response, next) => {
   const { bookId } = request.params
-  response.send(`would show book ID ${bookId}`)
+  response.render('books/show')
 })
 
 // create a book route
