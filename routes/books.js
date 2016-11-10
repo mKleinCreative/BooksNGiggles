@@ -26,7 +26,7 @@ router.post('/new', (request, response) => {
   const book = { title, author, genre, image, description }
 
   Promise.all([
-    Books.createBook(title, author, genre, description, image),
+    Books.createBook(title, description, image),
     Authors.create(author),
     Genres.create(genre)
   ])
@@ -60,17 +60,18 @@ router.get( '/:id', ( request, response, next ) => {
   ])
   .then( result => {
     const [ book, authors, genres ] = result
-    response.render( 'books/detail', { book, authors, genres })
+    response.render( 'books/detail', { book, author, genre })
   })
   .catch( error => response.send({ error, message: error.message }))
 })
 
 router.post( '/', ( request, response, next ) => {
-  const { title, description, image, published, author } = request.body
+  const { title, author, genre, description, image_url } = request.body
 
   Promise.all([
-    Books.createBook( title, description, image, published ),
-    Authors.create( author )
+    Books.createBook( title, description, image_url ),
+    Authors.create( author ),
+    Genres.create( genre )
   ])
   .then( result => BookAuthors.create( result[ 0 ].id, result[ 1 ].id ))
   .then( result => response.redirect( `/books/${result.book_id}` ))
@@ -78,7 +79,7 @@ router.post( '/', ( request, response, next ) => {
 })
 
 router.post( '/:id', (request, response, next) => {
-  const { title, description, image, published, author } = request.body
+  const { title, genre, author, description,  image_url} = request.body
 
   .then( result => response.redirect( `/books/${result.book_id}` ))
   .catch( error => response.send({ message: error.message }))
