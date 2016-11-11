@@ -1,19 +1,47 @@
 const express = require('express')
 const router = express.Router()
 
-const { Books, Authors, Genres, BookAuthors, db } = require( '../database' )
+const { Books, Authors, Genres, BookAuthors, db, BookGenres, Search } = require( '../database' )
 
 
 router.get('/', function(req, res) {
   //res.send('hello world ')
-
-  Books.all()
+  Search.byBookAuthor()
     .then(books => {
-      res.render('books/show', { books: books })
+      res.render('books/show', { books })
     })
     .catch(error => {
-      response.render('error', { error: error } )
+      response.render('error', { error } )
     })
+
+  // Search.byBookAuthor()
+  //   .then(books => {
+
+  //     const booksWithAuthorAndGenre = books.map( (book) => {
+
+  //       const { genre_id, author_id } = book
+
+  //       Genres
+  //         .getNameById(genre_id)
+  //         .then((genre) => {
+  //           Authors
+  //             .getNameById(author_id)
+  //             .then((author) => {
+  //               const bookInfo = { book, genreName: genre.name, authorName: author.name }
+  //               return bookInfo  
+  //             })
+  //       })
+  //     })
+
+  //     res.render('books/show', { books: booksWithAuthorAndGenre })
+
+
+      
+      
+  //   })
+  //   .catch(error => {
+  //     response.render('error', { error: error } )
+  //   })
 })
 
 
@@ -34,6 +62,8 @@ router.post('/new', (request, response) => {
     const bookId = results[0].id
     const authorId = results[1].id
     const genreId = results[2].id
+    BookAuthors.create(bookId, authorId)
+    BookGenres.create(bookId, genreId)
 
     response.render(`books/detail`, { book })
     // db.connectAuthorsWithBook(authorId.id, bookId.id)
